@@ -1,5 +1,89 @@
 # Self-Configuration
+# Clash Configuration Integration Tool
 
+This tool is specifically designed for users who "are afraid of making mistakes in configuration". It automatically reads configuration files and local old data, extracts nodes and subscriptions from them, and merges them into the author's new template.
+
+## Usage Guide
+
+### 0. Environment Preparation (Dependency Library)
+
+To ensure the script runs properly, please first install the required dependency library PyYAML in the terminal or command line:
+
+```bash
+
+pip install pyyaml
+```
+
+### 1. Prepare Files
+
+Please ensure the following files are in the same folder:
+
+config_builder.py: Core script.
+
+template.yaml: Basic template file provided by the author.
+
+user_config.yaml: User configuration file (you need to edit this file).
+
+(Optional) my_old_config.yaml: Your old configuration file (if available).
+
+### 2. Modify the Configuration File (user_config.yaml)
+
+Do not modify the Python script. Directly open user_config.yaml with Notepad or an editor and fill in your information:
+
+#### Scenario A: Fill in Subscription Links
+
+Fill in under the subscriptions list:
+
+```yaml
+
+subscriptions:
+  - name: 'MyAirport'
+    url: 'https://example.com/...'
+```
+
+#### Scenario B: Import Self-built Nodes
+
+If you have an old file containing self-built nodes, fill in the file name under local_source_files:
+
+```yaml
+
+local_source_files:
+  - 'my_old_config.yaml'
+```
+
+#### Scenario C: Modify Output File Name
+
+If you want to modify the name of the generated file (default is clash.yaml):
+
+```Plain Text
+
+files:
+  output: 'clash_config.yaml'
+```
+
+### 3. Run the Script
+
+Right-click in the blank space of the folder -> Open Terminal, and run:
+
+```bash
+
+python config_builder.py
+```
+
+### 4. Results
+
+After the script runs successfully, clash.yaml will be generated in the same directory.
+
+This file includes:
+
+The airport subscription you filled in (automatically injected into all regional groups).
+
+The self-built nodes extracted from your old file (automatically injected into the manual switch/auto-selection group).
+
+Intelligent Filtering: All groups will automatically filter out invalid nodes containing keywords such as "expired", "remaining", and "official website".
+
+The following is a statement from the original author.
+---
 <p align="center">
   <img src="https://img.shields.io/badge/Clash-Meta-blue?style=flat-square&logo=clash" alt="Clash">
   <img src="https://img.shields.io/badge/Surge-5-orange?style=flat-square" alt="Surge">
