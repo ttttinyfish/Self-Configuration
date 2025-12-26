@@ -1,5 +1,67 @@
 # Self-Configuration
+Clash 配置整合工具
 
+这个脚本能同时处理“已有配置文件的节点”和“只有链接的订阅”。
+
+使用方法
+
+0. 环境准备 (依赖库)
+
+为了确保脚本正常运行，请先在终端或命令行中安装必要的依赖库 PyYAML：
+
+pip install pyyaml
+
+
+1. 准备文件
+
+确保 template.yaml (作者的模板) 和这个脚本在同一个文件夹。
+
+2. 修改脚本配置 (config_builder.py)
+
+用记事本打开脚本，找到顶部的 用户配置区域：
+
+场景 A：填入订阅链接 (机场 URL)
+
+在 MANUAL_SUBSCRIPTIONS 区域填入你的订阅地址：
+
+MANUAL_SUBSCRIPTIONS = [
+    {
+        'name': 'MyAirport',  # 起个英文名
+        'url': 'https://....' # 你的订阅链接粘贴在这里
+    },
+]
+
+
+场景 B：导入自建节点 (本地文件)
+
+如果你有包含自建节点的旧文件 (比如 my_nodes.yaml)，在 SOURCE_FILES 里填入文件名：
+
+SOURCE_FILES = [
+    'my_nodes.yaml', 
+]
+
+
+(如果没有本地文件，这一项可以忽略或留空)
+
+3. 运行脚本
+
+双击运行或在终端运行：
+
+python config_builder.py
+
+
+4. 结果
+
+生成的 clash_config.yaml 里面会同时包含：
+
+你手动填写的机场订阅。
+
+你旧文件里的自建节点。
+
+所有节点和订阅都会自动归类到“手动切换”、“自动选择”和各个地区分组中。
+
+以下是原作者说明
+---
 <p align="center">
   <img src="https://img.shields.io/badge/Clash-Meta-blue?style=flat-square&logo=clash" alt="Clash">
   <img src="https://img.shields.io/badge/Surge-5-orange?style=flat-square" alt="Surge">
