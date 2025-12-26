@@ -1,64 +1,87 @@
-# Self-Configuration
-Clash 配置整合工具
+# Self-Configuration-整合版
+# Clash 配置终极整合工具
 
-这个脚本能同时处理“已有配置文件的节点”和“只有链接的订阅”。
+这个工具专为“怕填错配置”的用户设计。它会自动读取配置文件和本地旧数据，将其中的节点和订阅提取出来，并合并到作者的新模板中。
 
-使用方法
+## 使用方法
 
-0. 环境准备 (依赖库)
+### 0. 环境准备 (依赖库)
 
 为了确保脚本正常运行，请先在终端或命令行中安装必要的依赖库 PyYAML：
 
+```bash
+
 pip install pyyaml
+```
 
+### 1. 准备文件
 
-1. 准备文件
+请确保以下文件在同一个文件夹内：
 
-确保 template.yaml (作者的模板) 和这个脚本在同一个文件夹。
+config_builder.py: 核心脚本。
 
-2. 修改脚本配置 (config_builder.py)
+template.yaml: 作者提供的基础模板文件。
 
-用记事本打开脚本，找到顶部的 用户配置区域：
+user_config.yaml: 用户配置文件（你需要编辑这个文件）。
 
-场景 A：填入订阅链接 (机场 URL)
+(可选) my_old_config.yaml: 你的旧配置文件（如果有的话）。
 
-在 MANUAL_SUBSCRIPTIONS 区域填入你的订阅地址：
+### 2. 修改配置文件 (user_config.yaml)
 
-MANUAL_SUBSCRIPTIONS = [
-    {
-        'name': 'MyAirport',  # 起个英文名
-        'url': 'https://....' # 你的订阅链接粘贴在这里
-    },
-]
+不要修改 Python 脚本，直接用记事本或编辑器打开 user_config.yaml，填入你的信息：
 
+#### 场景 A：填入订阅链接
 
-场景 B：导入自建节点 (本地文件)
+在 subscriptions 列表下填入：
 
-如果你有包含自建节点的旧文件 (比如 my_nodes.yaml)，在 SOURCE_FILES 里填入文件名：
+```yaml
 
-SOURCE_FILES = [
-    'my_nodes.yaml', 
-]
+subscriptions:
+  - name: 'MyAirport'
+    url: 'https://example.com/...'
+```
 
+#### 场景 B：导入自建节点
 
-(如果没有本地文件，这一项可以忽略或留空)
+如果你有包含自建节点的旧文件，在 local_source_files 下填入文件名：
 
-3. 运行脚本
+```yaml
 
-双击运行或在终端运行：
+local_source_files:
+  - 'my_old_config.yaml'
+```
+
+#### 场景 C：修改输出文件名
+
+如果你想修改生成文件的名字（默认为 clash_config.yaml）：
+
+```yaml
+
+files:
+  output: 'clash_config.yaml'
+```
+
+### 3. 运行脚本
+
+在文件夹空白处右键 -> 打开终端 (Open Terminal)，运行：
+
+```bash
 
 python config_builder.py
+```
 
+### 4. 结果
 
-4. 结果
+脚本运行成功后，会在同目录下生成 clash_config.yaml。
 
-生成的 clash_config.yaml 里面会同时包含：
+该文件包含：
 
-你手动填写的机场订阅。
+你填写的机场订阅（自动注入到所有地区分组）。
 
-你旧文件里的自建节点。
+你旧文件里提取的自建节点（自动注入到手动切换/自动选择组）。
 
-所有节点和订阅都会自动归类到“手动切换”、“自动选择”和各个地区分组中。
+智能过滤：所有分组会自动过滤掉包含“到期”、“剩余”、“官网”等关键词的无效节点。
+> （注：文档部分内容由 AI 生成）
 
 以下是原作者说明
 ---
