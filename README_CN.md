@@ -1,5 +1,5 @@
-# Self-Configuration-整合版
 # Clash 配置终极整合工具
+只适用于clash verge rev, vibe coding而成
 
 这个工具专为“怕填错配置”的用户设计。它会自动读取配置文件和本地旧数据，将其中的节点和订阅提取出来，并合并到作者的新模板中。
 
@@ -20,7 +20,7 @@ pip install pyyaml
 
 config_builder.py: 核心脚本。
 
-template.yaml: 作者提供的基础模板文件。
+Clash.yaml: 作者提供的基础模板文件。
 
 user_config.yaml: 用户配置文件（你需要编辑这个文件）。
 

@@ -5,7 +5,7 @@
 
 # 1. 基础设置
 files:
-  template: 'clash.yaml'           # 作者提供的模板文件
+  template: 'Clash.yaml'           # 作者提供的模板文件
   output: 'clash_config.yaml'   # 生成的最终文件
 
 # 2. 机场订阅链接 (手动填写)
